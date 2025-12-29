@@ -10,8 +10,8 @@ def validate_publication_year(year: int):
         )
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     nationality = models.CharField(max_length=100, blank=True)
     biography = models.TextField(blank=True)
