@@ -1,48 +1,44 @@
-# Python2912
+# Library Project – Gestion de Bibliothèque avec Django
 
-Un projet Django pour la gestion de livres.
+> Projet de formation Python avancé : application de gestion de bibliothèque (livres, auteurs, catégories, emprunts) basée sur l’architecture MVT.
 
-## Installation
+---
 
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/hamzabouhouch1003/python2912.git
-   cd python2912
-   ```
+## 1. Présentation du projet
 
-2. Créez un environnement virtuel :
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # Sur Windows : .venv\Scripts\activate
-   ```
+Ce projet est une application web de gestion de bibliothèque (library) avec Django.  
+Elle permet notamment :
 
-3. Installez les dépendances :
-   ```bash
-   pip install -r requirements.txt
-   ```
+- De gérer un catalogue de livres (books) (métadonnées complètes, stock, catégories, etc.).
+- De gérer des auteurs (authors) et de lier leurs oeuvres à leurs noms.
+- De suivre des emprunts (loans) de livres par les usagers (dates, statut, retards…).
+- D’administrer tout cela via l’interface admin de Django, et plus tard via une interface publique.
 
-4. Appliquez les migrations :
-   ```bash
-   python manage.py migrate
-   ```
+Le projet suit les phases décrites dans un sujet de TP :
 
-5. Lancez le serveur :
-   ```bash
-   python manage.py runserver
-   ```
+- Phase 1 : Modélisation (Author, Book, Loan, Category).
+- Phase 2 : Configuration du projet Django.
+- Phase 3 : Interface d’administration.
+- Phase 4 : Routage (URLs).
+- Phase 5+ : Vues, templates, formulaires, signaux, statistiques, etc.
 
-## Utilisation
+Le projet suit la structuration en phases du sujet de TP (Phase 1 à 10), même si seules certaines phases sont entièrement implémentées.
 
-- Accédez à l'application via http://127.0.0.1:8000/
+## 2. Stack technique
 
-## Fonctionnalités
+- Langage : Python 3.13
+- Framework web : Django (version compatible 3.13, par ex. Django 5.1+)
+- Base de données : SQLite (par défaut, simple pour le développement)
+- Front-end : Templates Django + Bootstrap minimal (CDN)
+- Environnement : Virtualenv (`.venv`) activé par `python -m venv .venv` (Sous windows .venv\Scripts\Activate.ps1)
 
-- Gestion de livres (à développer)
+---
 
-## Contribution
+## 3. Installation et mise en place
 
-1. Forkez le projet
-2. Créez une branche pour votre fonctionnalité
-3. Commitez vos changements
-4. Poussez vers la branche
-5. Ouvrez une Pull Request
+### 3.1 Cloner le dépôt
+
+```bash
+git clone <URL_DU_REPO>
+cd <nom_du_dossier>
+
