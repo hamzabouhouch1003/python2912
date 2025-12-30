@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Bienvenue à la Bibliothèque</h1>
+        <p class="lead">Découvrez notre collection de livres et gérez vos emprunts facilement.</p>
+    </div>
+</div>
+
+<!-- Statistiques -->
+<div class="row my-5">
+    <div class="col-md-4 mb-3">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="bi bi-book-fill fs-1 text-primary"></i>
+                <h3 class="mt-3">{{ total_books }}</h3>
+                <p class="text-muted mb-0">Livres disponibles</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="bi bi-person-fill fs-1 text-success"></i>
+                <h3 class="mt-3">{{ total_authors }}</h3>
+                <p class="text-muted mb-0">Auteurs</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="bi bi-bookmark-fill fs-1 text-warning"></i>
+                <h3 class="mt-3">{{ active_loans }}</h3>
+                <p class="text-muted mb-0">Emprunts actifs</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Livres récents -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Livres récemment ajoutés</h2>
+    </div>
+    {% if recent_books %}
+        {% for book in recent_books %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }}" style="height: 300px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 300px;">
+                        <i class="bi bi-book fs-1 text-white"></i>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text text-muted">Par {{ book.author }}</p>
+                    <p class="card-text">
+                        <small>
+                            {% if book.available_copies > 0 %}
+                                <span class="badge bg-success">Disponible ({{ book.available_copies }})</span>
+                            {% else %}
+                                <span class="badge bg-danger">Indisponible</span>
+                            {% endif %}
+                        </small>
+                    </p>
+                    <a href="{% url 'books:book_detail' book.pk %}" class="btn btn-primary btn-sm">Voir détails</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <p class="text-muted">Aucun livre disponible pour le moment.</p>
+        </div>
+    {% endif %}
+</div>
+
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{% url 'books:book_list' %}" class="btn btn-primary btn-lg">
+            <i class="bi bi-collection"></i> Voir tout le catalogue
+        </a>
+    </div>
+</div>
+{% endblock %}

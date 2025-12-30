@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ book.title }} - Bibliothèque{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'books:home' %}">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'books:book_list' %}">Catalogue</a></li>
+        <li class="breadcrumb-item active">{{ book.title|truncatewords:5 }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <!-- Image du livre -->
+    <div class="col-md-4">
+        {% if book.cover_image %}
+            <img src="{{ book.cover_image.url }}" class="img-fluid rounded shadow" alt="{{ book.title }}">
+        {% else %}
+            <div class="bg-secondary d-flex align-items-center justify-content-center rounded shadow" style="height: 500px;">
+                <i class="bi bi-book fs-1 text-white"></i>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Informations du livre -->
+    <div class="col-md-8">
+        <h1>{{ book.title }}</h1>
+        <p class="lead text-muted">Par <a href="{% url 'books:author_detail' book.author.pk %}">{{ book.author }}</a></p>
+        
+        <!-- Statut de disponibilité -->
+        <div class="mb-3">
+            {% if is_available %}
+                <span class="badge bg-success fs-6">
+                    <i class="bi bi-check-circle"></i> Disponible ({{ book.available_copies }}/{{ book.total_copies }} exemplaires)
+                </span>
+            {% else %}
+                <span class="badge bg-danger fs-6">
+                    <i class="bi bi-x-circle"></i> Actuellement indisponible
+                </span>
+            {% endif %}
+        </div>
+
+        <!-- Détails du livre -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Informations</h5>
+                <table class="table table-borderless mb-0">
+                    <tr>
+                        <th style="width: 30%;">ISBN:</th>
+                        <td>{{ book.isbn }}</td>
+                    </tr>
+                    <tr>
+                        <th>Année de publication:</th>
+                        <td>{{ book.publication_year }}</td>
+                    </tr>
+                    <tr>
+                        <th>Catégorie:</th>
+                        <td>
+                            <a href="{% url 'books:category_books' book.category.pk %}">{{ book.category }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Langue:</th>
+                        <td>{{ book.language }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pages:</th>
+                        <td>{{ book.pages }}</td>
+                    </tr>
+                    <tr>
+                        <th>Éditeur:</th>
+                        <td>{{ book.publisher }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Description -->
+        {% if book.description %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Description</h5>
+                <p class="card-text">{{ book.description }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
