@@ -33,7 +33,7 @@
         <div class="mb-3">
             {% if is_available %}
                 <span class="badge bg-success fs-6">
-                    <i class="bi bi-check-circle"></i> Disponible ({{ book.available_copies }}/{{ book.total_copies }} exemplaires)
+                    <i class="bi bi-check-circle"></i> Disponible ({{ book.copies_available }}/{{ book.copies_total }} exemplaires)
                 </span>
             {% else %}
                 <span class="badge bg-danger fs-6">

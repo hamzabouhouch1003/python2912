@@ -47,7 +47,7 @@
                     <h6 class="card-title">{{ book.title|truncatewords:5 }}</h6>
                     <p class="card-text text-muted small">{{ book.author }}</p>
                     <p class="card-text small">
-                        {% if book.available_copies > 0 %}
+                        {% if book.copies_available > 0 %}
                             <span class="badge bg-success">Disponible</span>
                         {% else %}
                             <span class="badge bg-danger">Indisponible</span>

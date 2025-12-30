@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Nouvel emprunt - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h1 class="mb-4">Créer un nouvel emprunt</h1>
+        
+        <div class="card">
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Affichage des erreurs globales -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Livre -->
+                    <div class="mb-3">
+                        <label for="{{ form.book.id_for_label }}" class="form-label">
+                            {{ form.book.label }} <span class="text-danger">*</span>
+                        </label>
+                        {{ form.book }}
+                        {% if form.book.help_text %}
+                            <div class="form-text">{{ form.book.help_text }}</div>
+                        {% endif %}
+                        {% if form.book.errors %}
+                            <div class="text-danger">
+                                {{ form.book.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Nom de l'emprunteur -->
+                    <div class="mb-3">
+                        <label for="{{ form.borrower_name.id_for_label }}" class="form-label">
+                            {{ form.borrower_name.label }} <span class="text-danger">*</span>
+                        </label>
+                        {{ form.borrower_name }}
+                        {% if form.borrower_name.errors %}
+                            <div class="text-danger">
+                                {{ form.borrower_name.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="{{ form.borrower_email.id_for_label }}" class="form-label">
+                            {{ form.borrower_email.label }} <span class="text-danger">*</span>
+                        </label>
+                        {{ form.borrower_email }}
+                        {% if form.borrower_email.errors %}
+                            <div class="text-danger">
+                                {{ form.borrower_email.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Numéro de carte -->
+                    <div class="mb-3">
+                        <label for="{{ form.borrower_card_number.id_for_label }}" class="form-label">
+                            {{ form.borrower_card_number.label }} <span class="text-danger">*</span>
+                        </label>
+                        {{ form.borrower_card_number }}
+                        <div class="form-text">Format : 8 chiffres (ex: 12345678)</div>
+                        {% if form.borrower_card_number.errors %}
+                            <div class="text-danger">
+                                {{ form.borrower_card_number.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Commentaires -->
+                    <div class="mb-3">
+                        <label for="{{ form.comments.id_for_label }}" class="form-label">
+                            {{ form.comments.label }}
+                        </label>
+                        {{ form.comments }}
+                        {% if form.comments.errors %}
+                            <div class="text-danger">
+                                {{ form.comments.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> 
+                        <strong>Information :</strong> La durée d'emprunt est de 14 jours. 
+                        Un retard entraîne une pénalité de 0,50€ par jour.
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Créer l'emprunt
+                        </button>
+                        <a href="{% url 'books:loan_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Annuler
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

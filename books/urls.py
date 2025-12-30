@@ -10,6 +10,7 @@ urlpatterns = [
     # Books
     path('books/', views.book_list, name='book_list'),
     path('books/<int:pk>/', views.book_detail, name='book_detail'),
+    path('books/search/', views.book_search, name='book_search'),  
     path('category/<int:pk>/', views.books_by_category, name='category_books'),
     
     # Authors
@@ -18,9 +19,11 @@ urlpatterns = [
     
     # Loans
     path('loans/', views.loan_list, name='loan_list'),
+    path('loans/create/', views.create_loan, name='create_loan'),  
+    path('loans/<int:loan_id>/return/', views.return_book, name='return_book'),  
     path('loans/overdue/', views.overdue_loans, name='overdue_loans'),
     
     # Static
     path('about/', views.about, name='about'),
-    path('contact/', views.contact, name='contact'),
+    path('contact/', views.contact_view, name='contact'),  
 ]

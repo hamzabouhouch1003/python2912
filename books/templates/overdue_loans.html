@@ -38,7 +38,7 @@
                             <td>{{ loan.book.author }}</td>
                             <td>{{ loan.borrower_name }}</td>
                             <td>{{ loan.borrower_email }}</td>
-                            <td>{{ loan.due_date|date:"d/m/Y" }}</td>
+                            <td>{{ loan.due_at|date:"d/m/Y" }}</td>
                             <td>
                                 <span class="badge bg-danger">{{ loan.days_overdue }} jour{{ loan.days_overdue|pluralize }}</span>
                             </td>

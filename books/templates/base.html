@@ -33,6 +33,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'books:loan_list' %}">Emprunts</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'books:create_loan' %}">
+                                <i class="bi bi-plus-circle"></i> Nouvel emprunt
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'books:book_search' %}">
+                                <i class="bi bi-search"></i> Recherche avancée
+                            </a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'books:about' %}">À propos</a>
                     </li>

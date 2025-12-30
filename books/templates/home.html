@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <h1 class="mb-4">Bienvenue à la Bibliothèque</h1>
+        <h1 class="mb-4">Bienvenue à la Bibliothèque Municipale</h1>
         <p class="lead">Découvrez notre collection de livres et gérez vos emprunts facilement.</p>
     </div>
 </div>
@@ -62,8 +62,8 @@
                     <p class="card-text text-muted">Par {{ book.author }}</p>
                     <p class="card-text">
                         <small>
-                            {% if book.available_copies > 0 %}
-                                <span class="badge bg-success">Disponible ({{ book.available_copies }})</span>
+                            {% if book.copies_available > 0 %}
+                                <span class="badge bg-success">Disponible ({{ book.copies_available }})</span>
                             {% else %}
                                 <span class="badge bg-danger">Indisponible</span>
                             {% endif %}
