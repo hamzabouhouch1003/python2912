@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Auteurs - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1>Liste des auteurs</h1>
+    </div>
+</div>
+
+<!-- Barre de recherche -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form method="get" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Rechercher un auteur..." value="{{ search_query }}">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Rechercher
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Résultats -->
+<div class="row mb-3">
+    <div class="col-12">
+        <p class="text-muted">
+            {{ page_obj.paginator.count }} auteur{{ page_obj.paginator.count|pluralize }} trouvé{{ page_obj.paginator.count|pluralize }}
+        </p>
+    </div>
+</div>
+
+<!-- Liste des auteurs -->
+<div class="row">
+    {% if page_obj %}
+        {% for author in page_obj %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card h-100">
+                {% if author.photo %}
+                    <img src="{{ author.photo.url }}" class="card-img-top" alt="{{ author }}" style="height: 250px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                        <i class="bi bi-person-circle fs-1 text-secondary"></i>
+                    </div>
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ author }}</h5>
+                    <p class="card-text text-muted small">{{ author.nationality }}</p>
+                    <a href="{% url 'books:author_detail' author.pk %}" class="btn btn-sm btn-primary">Voir profil</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> Aucun auteur ne correspond à votre recherche.
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Pagination -->
+{% if page_obj.has_other_pages %}
+<nav aria-label="Navigation des pages">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">Précédente</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">Suivante</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

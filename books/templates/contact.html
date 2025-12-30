@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>Nous contacter</h1>
+        <p class="lead">Une question ? N'hésitez pas à nous écrire !</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom complet</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Sujet</label>
+                        <input type="text" class="form-control" id="subject" name="subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send"></i> Envoyer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Coordonnées</h5>
+                <p>
+                    <strong>Adresse :</strong><br>
+                    123 Rue de la République<br>
+                    75001 Paris
+                </p>
+                <p>
+                    <strong>Téléphone :</strong><br>
+                    01 23 45 67 89
+                </p>
+                <p>
+                    <strong>Email :</strong><br>
+                    contact@bibliotheque.fr
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

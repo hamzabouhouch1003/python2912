@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}À propos - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>À propos de la bibliothèque</h1>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <h2>Notre mission</h2>
+        <p>
+            La Bibliothèque Municipale a pour mission de promouvoir la lecture et la culture 
+            auprès de tous les publics. Nous offrons un accès libre et gratuit à une collection 
+            diversifiée d'ouvrages pour tous les âges et tous les goûts.
+        </p>
+
+        <h2 class="mt-4">Nos services</h2>
+        <ul>
+            <li>Prêt de livres pour une durée de 14 jours</li>
+            <li>Consultation sur place</li>
+            <li>Espace de lecture confortable</li>
+            <li>Catalogue en ligne accessible 24h/24</li>
+            <li>Réservation de livres</li>
+        </ul>
+
+        <h2 class="mt-4">Horaires d'ouverture</h2>
+        <table class="table">
+            <tr>
+                <th>Lundi - Vendredi</th>
+                <td>9h00 - 19h00</td>
+            </tr>
+            <tr>
+                <th>Samedi</th>
+                <td>10h00 - 18h00</td>
+            </tr>
+            <tr>
+                <th>Dimanche</th>
+                <td>Fermé</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Contact</h5>
+                <p class="card-text">
+                    <i class="bi bi-geo-alt"></i> 123 Rue de la République<br>
+                    75001 Paris<br><br>
+                    <i class="bi bi-telephone"></i> 01 23 45 67 89<br>
+                    <i class="bi bi-envelope"></i> contact@bibliotheque.fr
+                </p>
+                <a href="{% url 'books:contact' %}" class="btn btn-primary">Nous contacter</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Emprunts - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1>Gestion des emprunts</h1>
+    </div>
+</div>
+
+<!-- Filtres de statut -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="btn-group" role="group">
+            <a href="?status=BORROWED" class="btn {% if status_filter == 'BORROWED' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                En cours
+            </a>
+            <a href="?status=RETURNED" class="btn {% if status_filter == 'RETURNED' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                Retournés
+            </a>
+            <a href="{% url 'books:overdue_loans' %}" class="btn btn-outline-danger">
+                En retard
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Résultats -->
+<div class="row mb-3">
+    <div class="col-12">
+        <p class="text-muted">
+            {{ page_obj.paginator.count }} emprunt{{ page_obj.paginator.count|pluralize }} trouvé{{ page_obj.paginator.count|pluralize }}
+        </p>
+    </div>
+</div>
+
+<!-- Liste des emprunts -->
+<div class="row">
+    <div class="col-12">
+        {% if page_obj %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Livre</th>
+                            <th>Auteur</th>
+                            <th>Emprunteur</th>
+                            <th>Email</th>
+                            <th>Date d'emprunt</th>
+                            <th>Date limite</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for loan in page_obj %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'books:book_detail' loan.book.pk %}">{{ loan.book.title|truncatewords:5 }}</a>
+                            </td>
+                            <td>{{ loan.book.author }}</td>
+                            <td>{{ loan.borrower_name }}</td>
+                            <td>{{ loan.borrower_email }}</td>
+                            <td>{{ loan.loan_date|date:"d/m/Y" }}</td>
+                            <td>{{ loan.due_date|date:"d/m/Y" }}</td>
+                            <td>
+                                {% if loan.status == 'BORROWED' %}
+                                    <span class="badge bg-warning">En cours</span>
+                                {% else %}
+                                    <span class="badge bg-success">Retourné</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> Aucun emprunt à afficher.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Pagination -->
+{% if page_obj.has_other_pages %}
+<nav aria-label="Navigation des pages">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&status={{ status_filter }}">Précédente</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}&status={{ status_filter }}">Suivante</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

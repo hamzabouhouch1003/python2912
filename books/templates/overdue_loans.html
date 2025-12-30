@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Emprunts en retard - Bibliothèque{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="text-danger">
+            <i class="bi bi-exclamation-triangle"></i> Emprunts en retard
+        </h1>
+        <p class="lead">Liste des livres non retournés dans les délais</p>
+    </div>
+</div>
+
+<!-- Liste des emprunts en retard -->
+<div class="row">
+    <div class="col-12">
+        {% if loans %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-danger">
+                        <tr>
+                            <th>Livre</th>
+                            <th>Auteur</th>
+                            <th>Emprunteur</th>
+                            <th>Email</th>
+                            <th>Date limite</th>
+                            <th>Jours de retard</th>
+                            <th>Pénalité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for loan in loans %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'books:book_detail' loan.book.pk %}">{{ loan.book.title|truncatewords:5 }}</a>
+                            </td>
+                            <td>{{ loan.book.author }}</td>
+                            <td>{{ loan.borrower_name }}</td>
+                            <td>{{ loan.borrower_email }}</td>
+                            <td>{{ loan.due_date|date:"d/m/Y" }}</td>
+                            <td>
+                                <span class="badge bg-danger">{{ loan.days_overdue }} jour{{ loan.days_overdue|pluralize }}</span>
+                            </td>
+                            <td>{{ loan.calculate_penalty }}€</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="alert alert-warning mt-4">
+                <strong>Note:</strong> Les pénalités sont calculées à 0,50€ par jour de retard.
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="bi bi-check-circle"></i> Aucun emprunt en retard. Tous les livres ont été retournés à temps !
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <a href="{% url 'books:loan_list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour aux emprunts
+        </a>
+    </div>
+</div>
+{% endblock %}
